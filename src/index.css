@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.card-container {
+  perspective: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; 
+}
+
+/* Front and back of the card */
+.card {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s ease-in-out;
+}
+
+/* Card Front */
+.card .front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background-color: #1e3a3a;
+  border-radius: 12px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* Card Back */
+.card .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background-color: #105050;
+  transform: rotateY(180deg);
+  border-radius: 12px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.card:hover {
+  transform: rotateY(180deg);
+}
+
+.set {
+  display: block;
+  width: 90px;
+  height: 60px;
+  background-image: linear-gradient(
+    to right,
+    gold 0%,
+    gold 32%,
+    black 32%,
+    black 33%,
+    gold 33%,
+    gold 65%,
+    black 65%,
+    black 66%,
+    gold 66%,
+    gold 100%
+  );
+  border-radius: 8px;
+  margin-bottom: 20px;
+  margin-left: 15px;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: -20px;
+  right: 10px;
+  background-color: #ff5050;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 50; 
+  transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: #ff3030;
+}
+@media (min-width: 481px) {
+  .card {
+    width: 450px;
+  }
+  .close-btn{
+    right: -30px;
+  }
+}
