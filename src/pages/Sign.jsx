@@ -32,9 +32,7 @@ const Sign = () => {
     }
 
     if (!validNicknameRegex.test(nickname)) {
-      setError(
-        "Nickname faqat raqamlar, _ va . belgilaridan iborat bo'lishi kerak!"
-      );
+      setError("Nickname faqat raqamlar, _ va . belgilaridan iborat bo'lishi kerak!");
       setIsNicknameTaken(false);
       setSuggestedNicknames([]);
       return;
@@ -49,9 +47,7 @@ const Sign = () => {
     if (takenNicknames.includes(nickname)) {
       setError("Bu nickname allaqachon ishlatilgan!");
       setIsNicknameTaken(true); // Nickname ishlatilganligini belgilash
-      setSuggestedNicknames(
-        generateSuggestedNicknames(nickname, takenNicknames)
-      );
+      setSuggestedNicknames(generateSuggestedNicknames(nickname, takenNicknames));
     } else {
       setIsNicknameTaken(false); // Nickname ishlatilmagan
       setSuggestedNicknames([]);
@@ -100,10 +96,7 @@ const Sign = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Nickname */}
           <div>
-            <label
-              htmlFor="nickname"
-              className="block text-gray-700 font-semibold"
-            >
+            <label htmlFor="nickname" className="block text-gray-700 font-semibold">
               Nickname
             </label>
             <input
@@ -118,15 +111,10 @@ const Sign = () => {
             />
             {suggestedNicknames.length > 0 && (
               <div className="mt-2">
-                <p className="text-sm text-gray-600">
-                  Tavsiya etilgan nickname'lar:
-                </p>
+                <p className="text-sm text-gray-600">Tavsiya etilgan nickname'lar:</p>
                 <ul className="space-y-2">
                   {suggestedNicknames.map((nickname, index) => (
-                    <li
-                      key={index}
-                      className="text-indigo-600 cursor-pointer hover:underline"
-                    >
+                    <li key={index} className="text-indigo-600 cursor-pointer hover:underline">
                       {nickname}
                     </li>
                   ))}
@@ -136,10 +124,7 @@ const Sign = () => {
           </div>
           {/* Email */}
           <div>
-            <label
-              htmlFor="email"
-              className="block text-gray-700 font-semibold"
-            >
+            <label htmlFor="email" className="block text-gray-700 font-semibold">
               Email
             </label>
             <input
@@ -155,10 +140,7 @@ const Sign = () => {
           </div>
           {/* Password */}
           <div>
-            <label
-              htmlFor="password"
-              className="block text-gray-700 font-semibold"
-            >
+            <label htmlFor="password" className="block text-gray-700 font-semibold">
               Parol
             </label>
             <input
@@ -177,11 +159,9 @@ const Sign = () => {
           <button
             type="submit"
             disabled={isNicknameTaken} // Nickname ishlatilgan bo'lsa, tugma disable bo'ladi
-            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300 ${
-              isNicknameTaken ? "bg-gray-400 cursor-not-allowed" : ""
-            }`}
+            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300 ${isNicknameTaken ? "bg-gray-400 cursor-not-allowed" : ""}`}
           >
-            <Link to="/Home">Ro'yxatdan o'tish</Link>
+            Ro'yxatdan o'tish
           </button>
         </form>
         <p className="text-center text-sm text-gray-600 mt-4">
