@@ -88,7 +88,7 @@ const Header = () => {
                 alt="Telegram Icon"
               />
             </div>
-            <span className="absolute inset-y-0 left-16 flex items-center ml-10 opacity-0 text-white font-semibold text-lg transition-opacity duration-300 group-hover:opacity-100">
+            <span className="absolute inset-y-0 left-16 flex items-center ml-10 opacity-0 text-white font-semibold text-lg transition-opacity duration-300 group-hover:opacity-100 md:opacity-0 md:pointer-events-none">
               Aloqa
             </span>
           </a>
