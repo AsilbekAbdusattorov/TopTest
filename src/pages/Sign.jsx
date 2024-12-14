@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sign = () => {
   const [formData, setFormData] = useState({
@@ -166,12 +166,12 @@ const Sign = () => {
         </form>
         <p className="text-center text-sm text-gray-600 mt-4">
           Tizimda allaqachon ro'yxatdan o'tganmisiz?{" "}
-          <a
-            href="/login"
+          <Link
+            to="/login"
             className="text-indigo-600 font-semibold hover:underline"
           >
             Tizimga kiring
-          </a>
+          </Link>
         </p>
       </div>
     </div>

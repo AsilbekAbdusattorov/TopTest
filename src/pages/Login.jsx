@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [nickname, setNickname] = useState(""); // Email o'rniga nickname
@@ -71,12 +71,12 @@ const Login = () => {
         </form>
         <p className="text-center text-sm text-gray-600 mt-4">
           Hali tizimda ro'yxatdan o'tmaganmisiz?{" "}
-          <a
-            href="/signup"
+          <Link
+            to="/signup"
             className="text-blue-600 font-medium hover:underline"
           >
-            Ro'yxatdan o'ting
-          </a>
+            Ro'yxatdan o'tish
+          </Link>
         </p>
       </div>
     </div>
