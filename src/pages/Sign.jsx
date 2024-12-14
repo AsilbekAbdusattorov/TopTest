@@ -7,10 +7,23 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Email va parol shartlarini tekshirish
+    if (password.length < 6) {
+      setError("Parol kamida 6 ta belgidan iborat bo'lishi kerak!");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Email manzilingiz noto‘g‘ri!");
+      return;
+    }
 
     // Nickname yoki email mavjudligini tekshirish
     const existingUser = users.find(
@@ -24,10 +37,19 @@ const Signup = () => {
 
     // Yangi foydalanuvchini qo'shish
     users.push({ nickname, email, password });
-    console.log("Foydalanuvchilar ro'yxati:", users); // Debug maqsadida
+    console.log("Yangi foydalanuvchi qo'shildi:", users);
 
-    alert("Ro'yxatdan muvaffaqiyatli o'tdingiz!");
-    navigate("/"); // Home sahifasiga yo'naltirish
+    // Xabar ko'rsatish va formani tozalash
+    setSuccess("Ro'yxatdan muvaffaqiyatli o'tdingiz!");
+    setNickname("");
+    setEmail("");
+    setPassword("");
+    setError("");
+
+    // 3 soniyadan keyin yo'naltirish
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
   };
 
   return (
@@ -43,12 +65,15 @@ const Signup = () => {
           </div>
         )}
 
+        {success && (
+          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+            {success}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label
-              htmlFor="nickname"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
+            <label htmlFor="nickname" className="block text-sm font-medium text-gray-700 mb-1">
               Nickname
             </label>
             <input
@@ -57,16 +82,15 @@ const Signup = () => {
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className={`w-full p-3 border ${
+                error && nickname === "" ? "border-red-500" : "border-gray-300"
+              } rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none`}
               placeholder="Nickname kiriting"
             />
           </div>
 
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Email
             </label>
             <input
@@ -75,16 +99,15 @@ const Signup = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className={`w-full p-3 border ${
+                error && !email.includes("@") ? "border-red-500" : "border-gray-300"
+              } rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none`}
               placeholder="Email kiriting"
             />
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
               Parol
             </label>
             <input
@@ -93,7 +116,9 @@ const Signup = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className={`w-full p-3 border ${
+                error && password.length < 6 ? "border-red-500" : "border-gray-300"
+              } rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none`}
               placeholder="Parol kiriting"
             />
           </div>
@@ -105,14 +130,13 @@ const Signup = () => {
             Ro'yxatdan o'tish
           </button>
         </form>
-
         <p className="text-center text-sm text-gray-600 mt-6">
-          Allaqachon akkauntingiz bormi? 
+          Akkauntingiz bormi?
           <span
-            onClick={() => navigate("/login")}
-            className="text-blue-500 cursor-pointer hover:underline"
+            onClick={() => navigate("/Login")}
+            className="text-green-500 cursor-pointer hover:underline ml-2"
           >
-            Kirish
+            Tizimga kirish
           </span>
         </p>
       </div>

@@ -87,7 +87,7 @@ const Login = () => {
           Akkauntingiz yo'qmi? 
           <span
             onClick={() => navigate("/signup")}
-            className="text-green-500 cursor-pointer hover:underline"
+            className="text-green-500 cursor-pointer hover:underline ml-2"
           >
             Ro'yxatdan o'tish
           </span>
