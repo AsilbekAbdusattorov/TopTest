@@ -27,7 +27,7 @@ const Signup = () => {
     console.log("Foydalanuvchilar ro'yxati:", users); // Debug maqsadida
 
     alert("Ro'yxatdan muvaffaqiyatli o'tdingiz!");
-    navigate("/login"); // Login sahifasiga yo'naltirish
+    navigate("/"); // Home sahifasiga yo'naltirish
   };
 
   return (
