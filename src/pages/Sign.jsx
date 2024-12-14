@@ -1,183 +1,123 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { users } from "../Login-baza";
 
-const Sign = () => {
-  const [formData, setFormData] = useState({
-    nickname: "",
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState(""); // Xatolik xabarini ko'rsatish uchun
-  const [suggestedNicknames, setSuggestedNicknames] = useState([]); // Tavsiya etilgan nickname'lar
-  const [isNicknameTaken, setIsNicknameTaken] = useState(false); // Nickname ishlatilganligini tekshirish
-  const navigate = useNavigate(); // Correctly initialized navigate hook
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-
-    if (name === "nickname") {
-      checkNickname(value);
-    }
-  };
-
-  const checkNickname = (nickname) => {
-    // Nickname faqat raqamlar, _ va . belgilardan iborat bo'lishi kerak va kamida 5 belgidan iborat bo'lishi kerak
-    const validNicknameRegex = /^[a-zA-Z0-9._]+$/;
-    if (nickname.length < 5) {
-      setError("Nickname kamida 5 belgidan iborat bo'lishi kerak!");
-      setIsNicknameTaken(false);
-      setSuggestedNicknames([]);
-      return;
-    }
-
-    if (!validNicknameRegex.test(nickname)) {
-      setError("Nickname faqat raqamlar, _ va . belgilaridan iborat bo'lishi kerak!");
-      setIsNicknameTaken(false);
-      setSuggestedNicknames([]);
-      return;
-    }
-
-    setError(""); // Xatolikni tozalash
-
-    // localStorage'dagi foydalanuvchilarni tekshirish
-    const allUsers = JSON.parse(localStorage.getItem("users")) || [];
-    const takenNicknames = allUsers.map((user) => user.nickname);
-
-    if (takenNicknames.includes(nickname)) {
-      setError("Bu nickname allaqachon ishlatilgan!");
-      setIsNicknameTaken(true); // Nickname ishlatilganligini belgilash
-      setSuggestedNicknames(generateSuggestedNicknames(nickname, takenNicknames));
-    } else {
-      setIsNicknameTaken(false); // Nickname ishlatilmagan
-      setSuggestedNicknames([]);
-    }
-  };
-
-  const generateSuggestedNicknames = (nickname, takenNicknames) => {
-    const suggestions = [];
-    for (let i = 1; suggestions.length < 4; i++) {
-      // Nicknamega raqam qo'shib yangi nomlar yaratish
-      const newNickname = `${nickname}${i}`;
-      if (!takenNicknames.includes(newNickname)) {
-        suggestions.push(newNickname);
-      }
-    }
-    return suggestions;
-  };
+const Signup = () => {
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Parolni tekshirish (kamida 8 ta belgidan iborat bo'lishi kerak)
-    if (formData.password.length < 8) {
-      setError("Parol kamida 8 ta belgidan iborat bo'lishi kerak!");
+    // Nickname yoki email mavjudligini tekshirish
+    const existingUser = users.find(
+      (user) => user.nickname === nickname || user.email === email
+    );
+
+    if (existingUser) {
+      setError("Bu nickname yoki email allaqachon ishlatilgan!");
       return;
     }
 
-    // Foydalanuvchi ma'lumotlarini localStorage'ga saqlash
-    const allUsers = JSON.parse(localStorage.getItem("users")) || [];
-    allUsers.push(formData);
-    localStorage.setItem("users", JSON.stringify(allUsers));
+    // Yangi foydalanuvchini qo'shish
+    users.push({ nickname, email, password });
+    console.log("Foydalanuvchilar ro'yxati:", users); // Debug maqsadida
 
-    // Tizimga muvaffaqiyatli ro'yxatdan o'tganlik haqida xabar
-    alert("Siz muvaffaqiyatli ro'yxatdan o'tdingiz!");
-
-    // Bosh sahifaga yo'naltirish
-    setTimeout(() => {
-      navigate("/"); // Redirect keyinroq amalga oshiriladi
-    }, 100); // 100 millisekundlik kechikish
+    alert("Ro'yxatdan muvaffaqiyatli o'tdingiz!");
+    navigate("/login"); // Login sahifasiga yo'naltirish
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-indigo-500 via-blue-400 to-teal-300">
-      <div className="bg-white rounded-lg shadow-2xl p-8 w-full max-w-md">
-        <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">
           Ro'yxatdan o'tish
         </h2>
+
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            {error}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Nickname */}
           <div>
-            <label htmlFor="nickname" className="block text-gray-700 font-semibold">
+            <label
+              htmlFor="nickname"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Nickname
             </label>
             <input
               type="text"
               id="nickname"
-              name="nickname"
-              value={formData.nickname}
-              onChange={handleChange}
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
               required
-              className="w-full px-5 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               placeholder="Nickname kiriting"
             />
-            {suggestedNicknames.length > 0 && (
-              <div className="mt-2">
-                <p className="text-sm text-gray-600">Tavsiya etilgan nickname'lar:</p>
-                <ul className="space-y-2">
-                  {suggestedNicknames.map((nickname, index) => (
-                    <li key={index} className="text-indigo-600 cursor-pointer hover:underline">
-                      {nickname}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </div>
-          {/* Email */}
+
           <div>
-            <label htmlFor="email" className="block text-gray-700 font-semibold">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Email
             </label>
             <input
               type="email"
               id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-5 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
-              placeholder="Email manzilingizni kiriting"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="Email kiriting"
             />
           </div>
-          {/* Password */}
+
           <div>
-            <label htmlFor="password" className="block text-gray-700 font-semibold">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Parol
             </label>
             <input
               type="password"
               id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-5 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
-              placeholder="Parolni kiriting"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="Parol kiriting"
             />
           </div>
-          {error && <p className="text-red-600 text-center">{error}</p>}
-          {/* Submit Button */}
+
           <button
             type="submit"
-            disabled={isNicknameTaken} // Nickname ishlatilgan bo'lsa, tugma disable bo'ladi
-            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300 ${isNicknameTaken ? "bg-gray-400 cursor-not-allowed" : ""}`}
+            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition duration-300"
           >
             Ro'yxatdan o'tish
           </button>
         </form>
-        <p className="text-center text-sm text-gray-600 mt-4">
-          Tizimda allaqachon ro'yxatdan o'tganmisiz?{" "}
-          <Link
-            to="/login"
-            className="text-indigo-600 font-semibold hover:underline"
+
+        <p className="text-center text-sm text-gray-600 mt-6">
+          Allaqachon akkauntingiz bormi? 
+          <span
+            onClick={() => navigate("/login")}
+            className="text-blue-500 cursor-pointer hover:underline"
           >
-            Tizimga kiring
-          </Link>
+            Kirish
+          </span>
         </p>
       </div>
     </div>
   );
 };
 
-export default Sign;
+export default Signup;

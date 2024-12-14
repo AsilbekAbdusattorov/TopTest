@@ -1,53 +1,49 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { users } from "../Login-baza";
 
 const Login = () => {
-  const [nickname, setNickname] = useState(""); // Foydalanuvchi nickname'ini saqlash
-  const [password, setPassword] = useState(""); // Foydalanuvchi parolini saqlash
-  const [error, setError] = useState(""); // Xato xabarini ko'rsatish uchun
-  const [loading, setLoading] = useState(false); // Yuklanish holati
+  const [nickname, setNickname] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
 
-    // LocalStorage'dan foydalanuvchi ma'lumotlarini olish
-    const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+    // Foydalanuvchini qidirish
+    const user = users.find(
+      (user) => user.nickname === nickname && user.password === password
+    );
 
-    // Foydalanuvchini nickname orqali topish
-    const user = allUsers.find((user) => user.nickname === nickname);
-
-    // Kirish ma'lumotlarini tekshirish
-    if (user && user.password === password) {
-      localStorage.setItem("authToken", "dummy-auth-token"); // Auth tokenni saqlash
+    if (user) {
+      localStorage.setItem("authToken", "dummy-auth-token");
       alert("Tizimga muvaffaqiyatli kirdingiz!");
-      navigate("/"); // Muvaffaqiyatli kirganidan so'ng bosh sahifaga yo'naltirish
+      navigate("/"); // Home sahifasiga yo'naltirish
     } else {
       setError("Nickname yoki parol noto'g'ri!");
     }
-
-    setLoading(false);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-600 via-green-300 to-green-500">
-      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-400 to-blue-500">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">
           Tizimga kirish
         </h2>
 
         {error && (
-          <div className="bg-red-100 text-red-700 p-3 rounded mb-4 text-center">
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Nickname */}
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="nickname" className="block text-gray-700 font-medium">
+            <label
+              htmlFor="nickname"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Nickname
             </label>
             <input
@@ -56,14 +52,16 @@ const Login = () => {
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
               required
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none"
               placeholder="Nickname kiriting"
             />
           </div>
 
-          {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-gray-700 font-medium">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Parol
             </label>
             <input
@@ -72,31 +70,27 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none"
               placeholder="Parolni kiriting"
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
-            disabled={loading}
-            className={`w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold transition duration-300 ${
-              loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
-            }`}
+            className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-green-700 transition duration-300"
           >
-            {loading ? "Yuklanmoqda..." : "Tizimga kirish"}
+            Tizimga kirish
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-600 mt-4">
-          Hali tizimda ro'yxatdan o'tmaganmisiz?{' '}
-          <Link
-            to="/signup"
-            className="text-blue-600 font-medium hover:underline"
+        <p className="text-center text-sm text-gray-600 mt-6">
+          Akkauntingiz yo'qmi? 
+          <span
+            onClick={() => navigate("/signup")}
+            className="text-green-500 cursor-pointer hover:underline"
           >
             Ro'yxatdan o'tish
-          </Link>
+          </span>
         </p>
       </div>
     </div>
