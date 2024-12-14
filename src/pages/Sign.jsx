@@ -84,7 +84,9 @@ const Sign = () => {
     alert("Siz muvaffaqiyatli ro'yxatdan o'tdingiz!");
 
     // Bosh sahifaga yo'naltirish
-    navigate("/"); // Correctly redirects to home page
+    setTimeout(() => {
+      navigate("/"); // Redirect keyinroq amalga oshiriladi
+    }, 100); // 100 millisekundlik kechikish
   };
 
   return (

@@ -2,8 +2,8 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = localStorage.getItem("user"); // Tizimga kirganligini tekshirish
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  const isAuthenticated = !!localStorage.getItem("authToken"); // Token mavjudligini tekshirish
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
 export default ProtectedRoute;

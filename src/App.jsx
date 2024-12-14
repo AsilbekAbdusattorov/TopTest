@@ -18,7 +18,6 @@ const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        {/* Bosh sahifani faqat tizimga kirgan foydalanuvchilar ko'ra oladi */}
         <Route element={<MainLayout />}>
           <Route
             index
@@ -45,12 +44,8 @@ const App = () => {
             }
           />
         </Route>
-
-        {/* Login va Ro'yxatdan o'tish sahifalari */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Sign />} />
-
-        {/* Not Found sahifasi */}
         <Route path="*" element={<PageNotFound />} />
       </>
     )

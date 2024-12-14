@@ -2,26 +2,33 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [nickname, setNickname] = useState(""); // Email o'rniga nickname
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // Sahifalarni navigatsiya qilish uchun
+  const [nickname, setNickname] = useState(""); // Foydalanuvchi nickname'ini saqlash
+  const [password, setPassword] = useState(""); // Foydalanuvchi parolini saqlash
+  const [error, setError] = useState(""); // Xato xabarini ko'rsatish uchun
+  const [loading, setLoading] = useState(false); // Yuklanish holati
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
     // LocalStorage'dan foydalanuvchi ma'lumotlarini olish
     const allUsers = JSON.parse(localStorage.getItem("users")) || [];
-    
+
     // Foydalanuvchini nickname orqali topish
     const user = allUsers.find((user) => user.nickname === nickname);
 
     // Kirish ma'lumotlarini tekshirish
     if (user && user.password === password) {
+      localStorage.setItem("authToken", "dummy-auth-token"); // Auth tokenni saqlash
       alert("Tizimga muvaffaqiyatli kirdingiz!");
       navigate("/"); // Muvaffaqiyatli kirganidan so'ng bosh sahifaga yo'naltirish
     } else {
-      alert("Nickname yoki parol noto'g'ri!");
+      setError("Nickname yoki parol noto'g'ri!");
     }
+
+    setLoading(false);
   };
 
   return (
@@ -30,6 +37,13 @@ const Login = () => {
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Tizimga kirish
         </h2>
+
+        {error && (
+          <div className="bg-red-100 text-red-700 p-3 rounded mb-4 text-center">
+            {error}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Nickname */}
           <div>
@@ -46,6 +60,7 @@ const Login = () => {
               placeholder="Nickname kiriting"
             />
           </div>
+
           {/* Password */}
           <div>
             <label htmlFor="password" className="block text-gray-700 font-medium">
@@ -61,16 +76,21 @@ const Login = () => {
               placeholder="Parolni kiriting"
             />
           </div>
+
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+            disabled={loading}
+            className={`w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold transition duration-300 ${
+              loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+            }`}
           >
-            Tizimga kirish
+            {loading ? "Yuklanmoqda..." : "Tizimga kirish"}
           </button>
         </form>
+
         <p className="text-center text-sm text-gray-600 mt-4">
-          Hali tizimda ro'yxatdan o'tmaganmisiz?{" "}
+          Hali tizimda ro'yxatdan o'tmaganmisiz?{' '}
           <Link
             to="/signup"
             className="text-blue-600 font-medium hover:underline"
