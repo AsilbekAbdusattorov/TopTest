@@ -181,7 +181,7 @@ const Sign = () => {
               isNicknameTaken ? "bg-gray-400 cursor-not-allowed" : ""
             }`}
           >
-            <Link to="/">Ro'yxatdan o'tish</Link>
+            <Link to="/Home">Ro'yxatdan o'tish</Link>
           </button>
         </form>
         <p className="text-center text-sm text-gray-600 mt-4">

@@ -11,7 +11,7 @@ const Login = () => {
 
     // LocalStorage'dan foydalanuvchi ma'lumotlarini olish
     const allUsers = JSON.parse(localStorage.getItem("users")) || [];
-    
+
     // Foydalanuvchini nickname orqali topish
     const user = allUsers.find((user) => user.nickname === nickname);
 
@@ -33,7 +33,10 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Nickname */}
           <div>
-            <label htmlFor="nickname" className="block text-gray-700 font-medium">
+            <label
+              htmlFor="nickname"
+              className="block text-gray-700 font-medium"
+            >
               Nickname
             </label>
             <input
@@ -48,7 +51,10 @@ const Login = () => {
           </div>
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-gray-700 font-medium">
+            <label
+              htmlFor="password"
+              className="block text-gray-700 font-medium"
+            >
               Parol
             </label>
             <input
@@ -66,7 +72,7 @@ const Login = () => {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
           >
-            Tizimga kirish
+            <Link to='/Home'>Tizimga kirish</Link>
           </button>
         </form>
         <p className="text-center text-sm text-gray-600 mt-4">
