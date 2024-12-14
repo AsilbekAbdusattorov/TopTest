@@ -10,7 +10,7 @@ const Sign = () => {
   const [error, setError] = useState(""); // Xatolik xabarini ko'rsatish uchun
   const [suggestedNicknames, setSuggestedNicknames] = useState([]); // Tavsiya etilgan nickname'lar
   const [isNicknameTaken, setIsNicknameTaken] = useState(false); // Nickname ishlatilganligini tekshirish
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Correctly initialized navigate hook
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -84,7 +84,7 @@ const Sign = () => {
     alert("Siz muvaffaqiyatli ro'yxatdan o'tdingiz!");
 
     // Bosh sahifaga yo'naltirish
-    navigate("/");
+    navigate("/"); // Correctly redirects to home page
   };
 
   return (
