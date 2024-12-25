@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import gif from "../img/heart.gif";
 import telegram from "../img/telegram.png";
 
 const Header = () => {
