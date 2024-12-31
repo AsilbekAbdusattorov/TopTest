@@ -108,26 +108,45 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // LocalStorage'dagi foydalanuvchilarni olish
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-    // Foydalanuvchini tekshirish
-    const foundUser = storedUsers.find(
-      (user) => user.email === email && user.password === password
-    );
-
-    if (!foundUser) {
-      setError("Email yoki parol noto'g'ri!");
+    // Email validatsiyasi
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Email manzilingiz noto‘g‘ri!");
       return;
     }
 
-    // Kirish muvaffaqiyatli bo'lsa
-    setError("");
-    localStorage.setItem("currentUser", JSON.stringify(foundUser)); // Foydalanuvchini saqlash
-    navigate("/"); // Asosiy sahifaga yo'naltirish
+    // Parol uzunligini tekshirish
+    if (password.length < 6) {
+      setError("Parol kamida 6 ta belgidan iborat bo'lishi kerak!");
+      return;
+    }
+
+    try {
+      // Backendga so'rov yuborish
+      const response = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setError("");
+        // Foydalanuvchini saqlash
+        localStorage.setItem("currentUser", JSON.stringify(data.user));
+        navigate("/"); // Asosiy sahifaga yo'naltirish
+      } else {
+        setError(data.error || "Xatolik yuz berdi");
+      }
+    } catch (error) {
+      setError("Tarmoq xatosi: " + error.message);
+    }
   };
 
   return (
@@ -179,10 +198,21 @@ const Login = () => {
             Kirish
           </button>
         </form>
+
+        <div className="mt-4 text-center">
+          <span className="text-sm text-gray-600">
+            Hali ro'yxatdan o'tmaganmisiz?{" "}
+            <button
+              onClick={() => navigate("/signup")} // Sing up sahifasiga yo'naltirish
+              className="text-blue-600 hover:text-blue-800"
+            >
+              Ro'yxatdan o'ting
+            </button>
+          </span>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Login;
-

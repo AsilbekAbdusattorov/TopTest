@@ -157,7 +157,6 @@
 // };
 
 // export default Signup;
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -166,65 +165,55 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
-  // Yangi foydalanuvchini qo'shish funksiyasi
-  const handleSubmit = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
-    // Email va parol shartlarini tekshirish
-    if (password.length < 6) {
-      setError("Parol kamida 6 ta belgidan iborat bo'lishi kerak!");
-      return;
-    }
-
+    // Parol va emailni validatsiya qilish
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError("Email manzilingiz noto‘g‘ri!");
       return;
     }
 
-    // Mavjud foydalanuvchi ro'yxatini olish
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-    // Tekshirish: Username yoki email avval ro'yxatdan o'tganmi?
-    const existingUser = storedUsers.find(
-      (user) => user.username === username || user.email === email
-    );
-
-    if (existingUser) {
-      setError("Bu Username yoki email allaqachon ishlatilgan!");
+    if (password.length < 6) {
+      setError("Parol kamida 6 ta belgidan iborat bo'lishi kerak!");
       return;
     }
 
-    // Yangi foydalanuvchini qo'shish
-    const newUser = { username, email, password };
-    const updatedUsers = [...storedUsers, newUser];
+    try {
+      // Backendga so'rov yuborish
+      const response = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, email, password })
+      });
 
-    // localStorage'ga yozish
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-    console.log("Barcha foydalanuvchilar:", updatedUsers);
+      const data = await response.json();
 
-    // Muvaffaqiyatli xabar va formani tozalash
-    setSuccess("Ro'yxatdan muvaffaqiyatli o'tdingiz!");
-    setUsername("");
-    setEmail("");
-    setPassword("");
-    setError("");
-
-    // 3 soniyadan keyin Login sahifasiga yo'naltirish
-    setTimeout(() => {
-      navigate("/login");
-    }, 3000);
+      if (response.ok) {
+        setError("");
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setTimeout(() => {
+          navigate("/login"); // 3 soniyadan keyin Login sahifasiga yo'naltirish
+        }, 3000);
+      } else {
+        setError(data.error || "Xatolik yuz berdi");
+      }
+    } catch (error) {
+      setError("Tarmoq xatosi: " + error.message);
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">
-          Ro'yxatdan o'tish
-        </h2>
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Ro'yxatdan o'tish</h2>
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -232,16 +221,10 @@ const Signup = () => {
           </div>
         )}
 
-        {success && (
-          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-            {success}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSignup} className="space-y-6">
           <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-              Username
+              Foydalanuvchi nomi
             </label>
             <input
               type="text"
@@ -249,10 +232,8 @@ const Signup = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              className={`w-full p-3 border ${
-                error && username === "" ? "border-red-500" : "border-gray-300"
-              } rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none`}
-              placeholder="Username kiriting"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="Foydalanuvchi nomi kiriting"
             />
           </div>
 
@@ -266,9 +247,7 @@ const Signup = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className={`w-full p-3 border ${
-                error && !email.includes("@") ? "border-red-500" : "border-gray-300"
-              } rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none`}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               placeholder="Email kiriting"
             />
           </div>
@@ -283,9 +262,7 @@ const Signup = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className={`w-full p-3 border ${
-                error && password.length < 6 ? "border-red-500" : "border-gray-300"
-              } rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none`}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               placeholder="Parol kiriting"
             />
           </div>
@@ -297,19 +274,21 @@ const Signup = () => {
             Ro'yxatdan o'tish
           </button>
         </form>
-        <p className="text-center text-sm text-gray-600 mt-6">
-          Akkauntingiz bormi?
-          <span
-            onClick={() => navigate("/login")}
-            className="text-green-500 cursor-pointer hover:underline ml-2"
-          >
-            Tizimga kirish
+
+        <div className="mt-4 text-center">
+          <span className="text-sm text-gray-600">
+            Allaqachon ro'yxatdan o'tganmisiz?{" "}
+            <button
+              onClick={() => navigate("/login")} // Login sahifasiga yo'naltirish
+              className="text-blue-600 hover:text-blue-800"
+            >
+              Kirish
+            </button>
           </span>
-        </p>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Signup;
-
