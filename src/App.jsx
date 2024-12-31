@@ -11,8 +11,8 @@ import PageNotFound from "./pages/PageNoteFound";
 import ClassSelection from "./pages/ClassSelection";
 import QuestionPage from "./pages/QuestionPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-// import Login from "./pages/Login";
-// import Sign from "./pages/Sign";
+import Login from "./pages/Login";
+import Sign from "./pages/Sign";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -44,8 +44,8 @@ const App = () => {
             }
           />
         </Route>
-        {/* <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Sign />} /> */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Sign />} />
         <Route path="*" element={<PageNotFound />} />
       </>
     )
