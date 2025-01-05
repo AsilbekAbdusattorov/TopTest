@@ -47,7 +47,7 @@ const VerifyCode = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-indigo-900 to-black text-white">
-      <div className="bg-black bg-opacity-80 p-8 rounded-lg shadow-xl w-full max-w-md">
+      <div className="bg-black bg-opacity-80 p-8 rounded-lg shadow-xl w-full max-w-md sm:max-w-sm">
         <h2 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 text-center mb-6">
           Tasdiqlash
         </h2>
