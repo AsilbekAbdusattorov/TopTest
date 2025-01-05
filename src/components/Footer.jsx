@@ -4,39 +4,36 @@ import instagram from "../img/instagram.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-blue-500 to-green-500 text-white py-8 mt-16">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-            <h1 className="text-3xl font-semibold text-white mb-2">
-              TopTest.uz
-            </h1>
-            <p className="text-sm text-blue-100">
-              Siz uchun eng yaxshi test va bilim sinovlari platformasi.
-            </p>
-          </div>
-
-          <h2 className="text-2xl font-semibold text-center lg:text-right">
-            Created by Abdusattorov
-          </h2>
-          <div className="flex justify-center lg:justify-start items-center space-x-6">
-            <a
-              href="https://t.me/Abdusattorov_Asilbek"
-              className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-400 to-green-400 rounded-full shadow-md transition-all duration-300 hover:scale-105"
-            >
-              <img className="w-6 h-6" src={telegram} alt="telegram-logo" />
-            </a>
-            <a
-              href="https://www.instagram.com/abdusattorov_1307/?__pwa=1#"
-              className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-pink-500 to-yellow-500 rounded-full shadow-md transition-all duration-300 hover:scale-105"
-            >
-              <img className="w-6 h-6" src={instagram} alt="instagram-logo" />
-            </a>
-            
-          </div>
-        </div>
+    <footer className="w-full py-6 bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 text-gray-300 border-t border-gray-700 text-center rounded-b-lg shadow-2xl">
+    <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center px-6">
+      <div className="text-center lg:text-left">
+        <h1 className="text-2xl font-semibold text-white">
+          Top-Tests.uz
+        </h1>
+        <p className="text-sm text-gray-400 mt-2">
+          Sizning bilimlaringizni baholash va rivojlantirish uchun eng
+          yaxshi test platformasi.
+        </p>
       </div>
-    </footer>
+      <h2 className="text-lg font-semibold text-gray-300 mt-4 lg:mt-0">
+        Created by Abdusattorov
+      </h2>
+      <div className="flex space-x-4 mt-6 lg:mt-0">
+        <a
+          href="https://t.me/Abdusattorov_Asilbek"
+          className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center hover:scale-125 transition transform hover:rotate-6 shadow-lg hover:shadow-2xl"
+        >
+          <img className="w-6 h-6" src={telegram} alt="telegram-logo" />
+        </a>
+        <a
+          href="https://www.instagram.com/abdusattorov_1307/"
+          className="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center hover:scale-125 transition transform hover:rotate-6 shadow-lg hover:shadow-2xl"
+        >
+          <img className="w-6 h-6" src={instagram} alt="instagram-logo" />
+        </a>
+      </div>
+    </div>
+  </footer>
   );
 };
 

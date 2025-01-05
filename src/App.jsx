@@ -14,14 +14,18 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Sign from "./pages/Sign";
 import VerifyCode from "./pages/VerifyCode";
+import LoginHome from "./pages/LoginHome";
 
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
+        {/* LoginHome is the default route */}
+        <Route path="/" element={<LoginHome />} />
+        
         <Route element={<MainLayout />}>
           <Route
-            index
+            path="/home"
             element={
               <ProtectedRoute>
                 <Home />

@@ -867,7 +867,7 @@ const QuestionPage = () => {
 
   if (!completed) {
     return (
-      <div className="min-h-screen bg-gradient-to-r from-blue-500 to-green-500 flex justify-center items-center">
+      <div className="min-h-screen bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 flex justify-center items-center">
         {questions.length > 0 && (
           <div className="text-center p-8">
             <h1 className="text-center text-white text-5xl font-semibold mb-10">
@@ -881,7 +881,7 @@ const QuestionPage = () => {
                 <button
                   key={index}
                   onClick={() => handleAnswer(option)}
-                  className="bg-transparent text-white border-white border hover:text-black font-semibold py-3 px-8 rounded-full text-xl hover:bg-white transform transition-all duration-300 ease-in-out w-full"
+                  className="bg-transparent text-white border-2 border-white hover:text-black font-semibold py-3 px-8 rounded-full text-xl hover:bg-gradient-to-r hover:from-gray-700 hover:to-indigo-700 transform transition-all duration-300 ease-in-out w-full"
                 >
                   {option}
                 </button>
@@ -892,16 +892,16 @@ const QuestionPage = () => {
       </div>
     );
   }
-
+  
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-teal-500 p-6 flex justify-center items-center">
-      <div className="bg-white shadow-2xl p-8 rounded-3xl max-w-3xl w-full">
-        <h1 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">
+    <div className="min-h-screen bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 p-6 flex justify-center items-center">
+      <div className="bg-gray-800 shadow-2xl p-8 rounded-3xl max-w-3xl w-full">
+        <h1 className="text-3xl font-extrabold text-white mb-6 text-center">
           Test tugadi! Sizning natijangiz:
         </h1>
-        <p className="text-xl text-gray-700 mb-6 text-center">
+        <p className="text-xl text-white mb-6 text-center">
           To'g'ri javoblar:{" "}
-          <span className="text-green-600 font-semibold">{score}</span> /{" "}
+          <span className="text-green-400 font-semibold">{score}</span> /{" "}
           {questions.length}
         </p>
         <div className="flex flex-col gap-6">
@@ -910,30 +910,30 @@ const QuestionPage = () => {
               key={index}
               className={`p-6 rounded-lg shadow-lg ${
                 answer.selected === answer.correct
-                  ? "bg-green-100 border-l-4 border-green-500"
-                  : "bg-red-100 border-l-4 border-red-500"
+                  ? "bg-green-800 border-l-4 border-green-400"
+                  : "bg-red-800 border-l-4 border-red-400"
               } transition-all duration-300 ease-in-out transform hover:scale-105`}
             >
-              <h2 className="text-2xl text-black font-semibold mb-4">
+              <h2 className="text-2xl text-white font-semibold mb-4">
                 {index + 1}-Test
               </h2>
-              <h2 className="font-bold text-xl text-gray-700 mb-3">
+              <h2 className="font-bold text-xl text-gray-300 mb-3">
                 {answer.question}
               </h2>
               <p
-                className={`text-lg text-gray-600 mb-2 ${
+                className={`text-lg text-gray-300 mb-2 ${
                   answer.selected === answer.correct
-                    ? "text-green-600"
-                    : "text-red-600"
+                    ? "text-green-300"
+                    : "text-red-300"
                 }`}
               >
                 Sizning javobingiz: {answer.selected}
               </p>
               <p
-                className={`text-lg text-gray-600 ${
+                className={`text-lg text-gray-300 ${
                   answer.selected === answer.correct
-                    ? "text-green-600"
-                    : "text-red-600"
+                    ? "text-green-300"
+                    : "text-red-300"
                 }`}
               >
                 To'g'ri javob: {answer.correct}
@@ -942,14 +942,15 @@ const QuestionPage = () => {
           ))}
         </div>
         <Link
-          to="/"
-          className="mt-6 inline-block ml-4 sm:ml-16 md:ml-52 bg-gradient-to-r to-blue-700 text-white font-bold py-3 px-8 rounded-full hover:bg-gradient-to-l from-green-400 transition-all duration-300 ease-in-out text-lg text-center"
+          to="/home"
+          className="mt-6 inline-block ml-4 sm:ml-16 md:ml-52 bg-gradient-to-r from-indigo-700 to-indigo-500 text-white font-bold py-3 px-8 rounded-full hover:bg-gradient-to-l from-indigo-600 transition-all duration-300 ease-in-out text-lg text-center"
         >
           Yana boshidan boshlash
         </Link>
       </div>
     </div>
   );
+  
 };
 
 export default QuestionPage;

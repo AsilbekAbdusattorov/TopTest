@@ -1,18 +1,10 @@
 [
   {
-    "email": "qwe111949@gmail.com",
-    "password": "$2b$10$bsdf7RmFrPv.WUS8GmEoDelO0m/pvD01QUj8vELdAVzriOtVBO3h2",
-    "verificationCode": "532682",
-    "codeExpiry": 1736075876150,
-    "isVerified": false,
-    "id": 1
-  },
-  {
-    "email": "Abdusattorovasilbek278@gmail.com",
-    "password": "$2b$10$0xK3W7bVNxk9xPP0M3NYb.udT74ZedNpxpTzf.NaoCDtLNsS8C6UG",
-    "verificationCode": "634599",
-    "codeExpiry": 1736075981705,
+    "email": "abdusattorovasilbek278@gmail.com",
+    "password": "$2b$10$ve6ziudxfO4/m2Qp3vFs3O9YajHMkY/PJKQPELn8zFNkgGMn2XYEK",
+    "verificationCode": "952133",
+    "codeExpiry": 1736099200822,
     "isVerified": true,
-    "id": 2
+    "id": 1
   }
 ]

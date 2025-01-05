@@ -101,3 +101,10 @@
     right: -30px;
   }
 }
+
+.bg-stars-pattern {
+  background-image: url('path-to-your-star-pattern.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

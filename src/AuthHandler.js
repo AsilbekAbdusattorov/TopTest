@@ -33,9 +33,25 @@ const sendVerificationEmail = async (email, code) => {
   let mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: "Tasdiqlash kodi",
-    text: `Sizning tasdiqlash kodingiz: ${code}`,
+    subject: "Top-Tests.uz - Tasdiqlash kodi",
+    html: `
+      <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f7fa; border-radius: 8px; text-align: center;">
+        <h2 style="color: #2c3e50;">Top-Tests.uz - Sizning Tasdiqlash Kodingiz</h2>
+        <p style="color: #7f8c8d; font-size: 16px;">
+          Salom! Sizning Top-Tests.uz saytidagi ro'yxatdan o'tish jarayoningizni tasdiqlash uchun quyidagi kodni kiritishingiz kerak:
+        </p>
+        <h3 style="font-size: 24px; font-weight: bold; color: #e74c3c; margin: 20px 0;">${code}</h3>
+        <p style="color: #7f8c8d; font-size: 16px;">
+          Kodni 10 daqiqa ichida kiritishingiz kerak. Agar siz bu so'rovni amalga oshirmagan bo'lsangiz, iltimos, bu xabarni e'tiborsiz qoldiring.
+        </p>
+        <div style="margin-top: 30px;">
+          <p style="font-size: 14px; color: #95a5a6;">Yordam uchun biz bilan bog'laning: <a href="mailto:${process.env.EMAIL_USER}" style="color: #3498db;">${process.env.EMAIL_USER}</a></p>
+        </div>
+      </div>
+    `,
   };
+  
+  
 
   try {
     await transporter.sendMail(mailOptions);
@@ -61,10 +77,11 @@ const handleSignUp = async (req, res) => {
     console.log('UserData.json fayli topilmadi, yangi fayl yaratiladi.');
   }
 
+  // Foydalanuvchi emailini tekshirish
   const existingUser = users.find(user => user.email === email);
 
   if (existingUser) {
-    return res.status(400).json({ error: "Bu email bilan foydalanuvchi mavjud" });
+    return res.status(400).json({ error: "Bu email bilan foydalanuvchi allaqachon ro'yxatdan o'tgan" });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);

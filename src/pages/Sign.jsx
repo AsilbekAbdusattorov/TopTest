@@ -33,7 +33,7 @@ const Sign = () => {
 
       if (response.ok) {
         setError("");
-        navigate("/verify-code", { state: { email } }); // Tasdiqlash sahifasiga o'tish
+        navigate("/verify-code", { state: { email } }); // Redirect to verification page
       } else {
         setError(data.error || "Xatolik yuz berdi");
       }
@@ -45,9 +45,11 @@ const Sign = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Ro'yxatdan o'tish</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-indigo-900 to-black text-white">
+      <div className="bg-black bg-opacity-80 p-8 rounded-lg shadow-xl w-full max-w-md">
+        <h2 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 text-center mb-6">
+          Ro'yxatdan o'tish
+        </h2>
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -57,7 +59,7 @@ const Sign = () => {
 
         <form onSubmit={handleSignUp} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
               Email
             </label>
             <input
@@ -66,13 +68,13 @@ const Sign = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-gray-800 text-white placeholder-gray-400"
               placeholder="Email kiriting"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
               Parol
             </label>
             <input
@@ -81,14 +83,14 @@ const Sign = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-gray-800 text-white placeholder-gray-400"
               placeholder="Parol kiriting"
             />
           </div>
 
           <div>
-            <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-1">
-              Parolni tasdiqlang
+            <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-300 mb-1">
+              Parolni qaytaring
             </label>
             <input
               type="password"
@@ -96,8 +98,8 @@ const Sign = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              placeholder="Parolni tasdiqlang"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-gray-800 text-white placeholder-gray-400"
+              placeholder="Parolni "
             />
           </div>
 
@@ -105,8 +107,8 @@ const Sign = () => {
             type="submit"
             disabled={isLoading}
             className={`w-full py-3 px-4 rounded-lg font-medium ${
-              isLoading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-            }`}
+              isLoading ? "bg-blue-400 cursor-not-allowed" : "bg-indigo-700 hover:bg-indigo-800"
+            } text-white`}
           >
             {isLoading ? "Yuklanmoqda..." : "Ro'yxatdan o'tish"}
           </button>

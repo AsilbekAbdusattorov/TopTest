@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { subjects } from '../data';
 
-// Har bir fan uchun mavjud sinflarni belgilash
+// Fan uchun mavjud sinflar
 const subjectGrades = {
   "Ona tili va adabiyot": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
   "Matematika": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
@@ -39,9 +39,9 @@ const ClassSelection = () => {
   const filteredGrades = availableGrades.filter((grade) => grade !== undefined);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 flex justify-center items-center p-6">
-      <div className="text-center">
-        <h1 className="text-3xl font-bold text-white mb-8">
+    <div className="min-h-screen bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 flex justify-center items-center p-6">
+      <div className="text-center bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 rounded-xl shadow-2xl p-10 max-w-4xl">
+        <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-200 mb-8">
           {selectedSubject ? `${selectedSubject.name} fanida sinfni tanlang:` : 'Fan topilmadi'}
         </h1>
         
@@ -50,17 +50,17 @@ const ClassSelection = () => {
           <img
             src={selectedSubject.logo}
             alt={`${selectedSubject.name} logotipi`}
-            className="mx-auto mb-8 w-24 h-24 object-contain"
+            className="mx-auto mb-8 w-28 h-28 object-contain transition-transform transform hover:scale-110"
           />
         )}
         
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
           {filteredGrades.length ? (
             filteredGrades.map((grade) => (
               <Link
                 key={grade}
                 to={`/questions/${subject}/${grade}`}
-                className="bg-white shadow-lg rounded-lg p-6 text-center text-2xl font-semibold text-gray-800 transition-transform transform hover:scale-105 hover:bg-blue-400 hover:text-white duration-300"
+                className="bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 shadow-2xl rounded-lg p-8 text-center text-xl font-semibold text-white transition-transform transform hover:scale-105 hover:bg-gradient-to-r hover:from-gray-800 hover:to-indigo-800 duration-300"
               >
                 {grade}-sinf
               </Link>
