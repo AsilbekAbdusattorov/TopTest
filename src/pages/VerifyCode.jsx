@@ -1,41 +1,44 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const Sign = () => {
+const VerifyCode = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const receivedEmail = location.state?.email || "";
 
-  const handleSignUp = async (e) => {
+  // Emailni location.state orqali olish yoki userga kiritishga ruxsat berish
+  useEffect(() => {
+    if (receivedEmail) {
+      setEmail(receivedEmail);
+    }
+  }, [receivedEmail]);
+
+  const handleVerify = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
-    // Basic validation
-    if (password !== confirmPassword) {
-      setError("Parollar mos emas!");
-      setIsLoading(false);
-      return;
-    }
+    setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/signup", {
+      const response = await fetch("http://localhost:5000/api/verify-code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, code }),
       });
 
       const data = await response.json();
+      console.log("Server javobi:", data);
 
       if (response.ok) {
-        setError("");
-        navigate("/verify-code", { state: { email } }); // Tasdiqlash sahifasiga o'tish
+        alert("Tasdiqlash muvaffaqiyatli o'tdi!");
+        navigate("/login");
       } else {
-        setError(data.error || "Xatolik yuz berdi");
+        setError(data.error || "Tasdiqlashda xatolik yuz berdi");
       }
     } catch (err) {
       setError("Tarmoq xatosi: " + err.message);
@@ -47,7 +50,7 @@ const Sign = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Ro'yxatdan o'tish</h2>
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Tasdiqlash</h2>
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -55,7 +58,7 @@ const Sign = () => {
           </div>
         )}
 
-        <form onSubmit={handleSignUp} className="space-y-6">
+        <form onSubmit={handleVerify} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Email
@@ -64,7 +67,7 @@ const Sign = () => {
               type="email"
               id="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)} // Agar email bo‘sh bo‘lsa, foydalanuvchi kiritishi mumkin
               required
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               placeholder="Email kiriting"
@@ -72,32 +75,17 @@ const Sign = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-              Parol
+            <label htmlFor="code" className="block text-sm font-medium text-gray-700 mb-1">
+              Tasdiqlash kodi
             </label>
             <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="text"
+              id="code"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
               required
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              placeholder="Parol kiriting"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-1">
-              Parolni tasdiqlang
-            </label>
-            <input
-              type="password"
-              id="confirm-password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              placeholder="Parolni tasdiqlang"
+              placeholder="Tasdiqlash kodini kiriting"
             />
           </div>
 
@@ -108,7 +96,7 @@ const Sign = () => {
               isLoading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
             }`}
           >
-            {isLoading ? "Yuklanmoqda..." : "Ro'yxatdan o'tish"}
+            {isLoading ? "Tasdiqlanmoqda..." : "Tasdiqlash"}
           </button>
         </form>
       </div>
@@ -116,4 +104,4 @@ const Sign = () => {
   );
 };
 
-export default Sign;
+export default VerifyCode;

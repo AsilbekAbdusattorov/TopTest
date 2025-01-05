@@ -13,6 +13,7 @@ import QuestionPage from "./pages/QuestionPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Sign from "./pages/Sign";
+import VerifyCode from "./pages/VerifyCode";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -46,6 +47,7 @@ const App = () => {
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Sign />} />
+        <Route path="/verify-code" element={<VerifyCode />} />
         <Route path="*" element={<PageNotFound />} />
       </>
     )
