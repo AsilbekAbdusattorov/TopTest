@@ -1,7 +1,7 @@
 // src/server.js
 import express from 'express';
 import cors from 'cors';
-import { handleSignUp, handleVerifyCode, handleLogin } from './AuthHandler.js';
+import { handleSignUp, handleVerifyCode, handleLogin } from '../src/AuthHandler.js';
 
 const app = express();
 
