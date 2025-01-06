@@ -1,4 +1,3 @@
-// src/server.js
 import express from 'express';
 import cors from 'cors';
 import { handleSignUp, handleVerifyCode, handleLogin } from '../src/AuthHandler.js';
@@ -6,8 +5,8 @@ import { handleSignUp, handleVerifyCode, handleLogin } from '../src/AuthHandler.
 const app = express();
 
 // CORS ruxsatini berish
-app.use(cors());  // Barcha domenlardan kelgan so'rovlarni ruxsat berish
-app.use(express.json());  // JSON formatdagi so'rovlarni o'qish
+app.use(cors());
+app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
@@ -24,4 +23,3 @@ app.post('/api/login', handleLogin);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
