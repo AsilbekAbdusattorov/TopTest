@@ -1,3 +1,10 @@
 [
-
+  {
+    "email": "Abdusattorovasilbek278@gmail.com",
+    "password": "$2b$10$wtZjQYOugDeRMaWI5xkVLu/Qeh8ShrB/jWYYrPl2dJgsQ2KuF7Ija",
+    "verificationCode": "771731",
+    "codeExpiry": 1736184510185,
+    "isVerified": true,
+    "id": 1
+  }
 ]
