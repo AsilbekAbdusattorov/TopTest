@@ -25,8 +25,7 @@
       "nodemailer": "^6.9.16",
       "react": "^18.3.1",
       "react-dom": "^18.3.1",
-      "react-router-dom": "^7.0.1",
-      "react-scripts": "^3.0.1"
+      "react-router-dom": "^7.0.1"
     },
     "devDependencies": {
       "@vitejs/plugin-react": "^4.3.1",
@@ -38,7 +37,6 @@
       "vite": "^5.4.1"
     },
     "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
-    "main": "api/server.js",
     "keywords": [],
     "author": "",
     "license": "ISC"
