@@ -10,48 +10,16 @@ import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNoteFound";
 import ClassSelection from "./pages/ClassSelection";
 import QuestionPage from "./pages/QuestionPage";
-import ProtectedRoute from "./components/ProtectedRoute";
-import Login from "./pages/Login";
-import Sign from "./pages/Sign";
-import VerifyCode from "./pages/VerifyCode";
-import LoginHome from "./pages/LoginHome";
 
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        {/* LoginHome is the default route */}
-        <Route path="/" element={<LoginHome />} />
-        
         <Route element={<MainLayout />}>
-          <Route
-            path="/home"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/class/:subject"
-            element={
-              <ProtectedRoute>
-                <ClassSelection />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/questions/:subject/:grade"
-            element={
-              <ProtectedRoute>
-                <QuestionPage />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/" element={<Home />} />
+          <Route path="/class/:subject" element={<ClassSelection />} />
+          <Route path="/questions/:subject/:grade" element={<QuestionPage />} />
         </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Sign />} />
-        <Route path="/verify-code" element={<VerifyCode />} />
         <Route path="*" element={<PageNotFound />} />
       </>
     )
