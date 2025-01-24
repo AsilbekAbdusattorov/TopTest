@@ -1,6 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Hamma elementlar uchun chegaralarni hisoblashni to'g'ri qiladi */
+}
+
+html, body {
+  width: 100%; /* Sahifa kengligini ekran kengligiga tenglaydi */
+  overflow-x: hidden; /* Gorizontal scrollni o‘chiradi */
+}
+
 .card-container {
   perspective: 1000px;
   display: flex;
@@ -101,3 +112,4 @@
     right: -30px;
   }
 }
+
