@@ -42,11 +42,11 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 py-6">
+    <div className="bg-cyan-500 py-6">
       <div className="container mx-auto flex justify-between items-center px-4">
         {/* Donate Button */}
         <button
-          className="flex items-center px-6 py-3 rounded-lg shadow-lg bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 text-white text-lg font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-indigo-600 hover:to-gray-700 hover:shadow-xl transform hover:scale-105 group"
+          className="flex items-center px-6 py-3 rounded-lg shadow-md  text-white text-lg font-medium transition-all duration-300 bg-green-600 shadow-green-600 hover:bg-green-500 hover:shadow-xl transform hover:scale-105 group"
           onClick={openDonateModal}
         >
           {/* Tugma yuragi */}
@@ -78,9 +78,9 @@ const Header = () => {
             href="https://t.me/Abdusattorov_Asilbek"
             target="_blank"
             rel="noopener noreferrer"
-            className="relative flex items-center mx-auto md:mx-0 w-14 h-14 md:w-14 md:h-14 md:hover:w-52 rounded-full bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900x shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105 group"
+            className="relative flex items-center mx-auto md:mx-0 w-14 h-14 md:w-14 md:h-14 md:hover:w-52 rounded-full bg-green-700 shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105 group"
           >
-            <div className="flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900x">
+            <div className="flex items-center justify-center w-14 h-14 rounded-full bg-green-700 to-gray-900x">
               <img
                 className="w-8 h-8 shadow-sm transition-transform duration-300 group-hover:scale-110"
                 src={telegram}

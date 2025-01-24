@@ -867,7 +867,7 @@ const QuestionPage = () => {
 
   if (!completed) {
     return (
-      <div className="min-h-screen bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 flex justify-center items-center">
+      <div className="min-h-screen bg-cyan-500 flex justify-center items-center">
         {questions.length > 0 && (
           <div className="text-center p-8">
             <h1 className="text-center text-white text-5xl font-semibold mb-10">
@@ -881,7 +881,7 @@ const QuestionPage = () => {
                 <button
                   key={index}
                   onClick={() => handleAnswer(option)}
-                  className="bg-transparent text-white border-2 border-white hover:text-black font-semibold py-3 px-8 rounded-full text-xl hover:bg-gradient-to-r hover:from-gray-700 hover:to-indigo-700 transform transition-all duration-300 ease-in-out w-full"
+                  className="bg-transparent text-white border-2 border-white hover:text-black py-3 px-8 rounded-full text-xl font-bold transform transition-all duration-300 ease-in-out w-full"
                 >
                   {option}
                 </button>
@@ -894,7 +894,7 @@ const QuestionPage = () => {
   }
   
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 p-6 flex justify-center items-center">
+    <div className="min-h-screen bg-cyan-500 p-6 flex justify-center items-center">
       <div className="bg-gray-800 shadow-2xl p-8 rounded-3xl max-w-3xl w-full">
         <h1 className="text-3xl font-extrabold text-white mb-6 text-center">
           Test tugadi! Sizning natijangiz:
@@ -942,8 +942,8 @@ const QuestionPage = () => {
           ))}
         </div>
         <Link
-          to="/home"
-          className="mt-6 inline-block ml-4 sm:ml-16 md:ml-52 bg-gradient-to-r from-indigo-700 to-indigo-500 text-white font-bold py-3 px-8 rounded-full hover:bg-gradient-to-l from-indigo-600 transition-all duration-300 ease-in-out text-lg text-center"
+          to="/"
+          className="mt-6 inline-block ml-4 sm:ml-16 md:ml-52 bg-cyan-500 text-white font-bold py-3 px-8 rounded-full hover:bg-gradient-to-l from-indigo-600 transition-all duration-300 ease-in-out text-lg text-center"
         >
           Yana boshidan boshlash
         </Link>

@@ -39,9 +39,9 @@ const ClassSelection = () => {
   const filteredGrades = availableGrades.filter((grade) => grade !== undefined);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 flex justify-center items-center p-6">
-      <div className="text-center bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 rounded-xl shadow-2xl p-10 max-w-4xl">
-        <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-200 mb-8">
+    <div className="min-h-screen bg-gray-300 flex justify-center items-center p-6">
+      <div className="text-center bg-white rounded-xl shadow-2xl p-10 max-w-4xl">
+        <h1 className="text-4xl font-extrabold text-black mb-8">
           {selectedSubject ? `${selectedSubject.name} fanida sinfni tanlang:` : 'Fan topilmadi'}
         </h1>
         
@@ -60,7 +60,7 @@ const ClassSelection = () => {
               <Link
                 key={grade}
                 to={`/questions/${subject}/${grade}`}
-                className="bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 shadow-2xl rounded-lg p-8 text-center text-xl font-semibold text-white transition-transform transform hover:scale-105 hover:bg-gradient-to-r hover:from-gray-800 hover:to-indigo-800 duration-300"
+                className="bg-cyan-500 shadow-2xl rounded-lg p-8 text-center text-xl font-semibold text-white transition-transform transform hover:scale-105 hover:bg-cyan-700 duration-300"
               >
                 {grade}-sinf
               </Link>
